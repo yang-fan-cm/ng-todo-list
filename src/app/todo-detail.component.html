@@ -1,0 +1,15 @@
+<div class="col-md-4 col-sm-12" *ngIf = "todo">
+	<h2>{{todo.task}} details!</h2>
+	<div class="container">
+		<label>ID: </label> {{todo.id}}
+	</div>
+	<div class="container">
+		<label>Task: </label> {{todo.task}}
+	</div>
+	<div class="container">
+		<label>Note: </label> {{todo.note}}
+	</div>
+	<div class="container">
+		<label>Complete Time: </label> {{todo.toBeCompleted | date: 'medium'}}
+	</div>
+</div>

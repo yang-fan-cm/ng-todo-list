@@ -1,3 +1,46 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1>{{ title }}</h1>
+			</div>
+		</div>
+		<div class="col-md-8 col-sm-12">
+			<ul class="todos">
+				<li *ngFor = "let todo of todos"
+					[class.selected] = "todo === selectedTodo"
+					(click) = "onSelect(todo)">
+					<span class="badge">{{todo.id}}</span> {{todo.task}}
+				</li>
+			</ul>
+		</div>
+		<todo-detail [todo]="selectedTodo" ></todo-detail>
+	</div>
+</div>
+
+
+
+
+	<!--
+	<h2>{{todo.task}} details!</h2>
+
+	<div class="container">
+		<label>ID: </label>
+		{{todo.id}}
+	</div>
+	
+	<div class="container">
+		<label>Note: </label>
+		{{todo.note}}
+	</div>
+	
+	<div class="container">
+		<label>To Be Completed: </label>
+		{{todo.toBeCompleted | date: 'medium'}}
+	</div>
+
+	<div class="container">
+		<label>Task:</label>
+		<input type="text" placeholder="Task" [(ngModel)] = 'todo.task'>
+	</div>
+	-->

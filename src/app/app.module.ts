@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { TodoDetailComponent } from './todo-detail.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TodoDetailComponent
   ],
   imports: [
     BrowserModule,
