@@ -10,7 +10,11 @@ export class TodoService {
 		return TODOS;
 	}
 	*/
-	getTodos(): Promise<Todo[]> {	//Update the TodoService with the Promise-return getTodos() method
-		return Promise.resolve(TODOS);
-	}
+  getTodos(): Promise<Todo[]> {	//Update the TodoService with the Promise-return getTodos() method
+	return Promise.resolve(TODOS);
+  }
+
+  getTodo(id: number): Promise<Todo> {	//Get a todo with id
+  	return this.getTodos().then(todos => todos.find(todo => todo.id === id));
+  }
 }
