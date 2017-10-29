@@ -1,28 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Todo } from './todo';
-
-const TODOS: Todo[] = [
-  {id: 1, task: 'Shopping', note:'Do shopping', toBeCompleted: Date.now() + Math.ceil(Math.random()*100000000) },
-  {id: 2, task: 'Meet John', note:'Have a meeting with John', toBeCompleted: Date.now() + Math.ceil(Math.random()*100000000) },
-  {id: 3, task: 'Take class', note:'Go to city to have Math class', toBeCompleted: Date.now() + Math.ceil(Math.random()*100000000) },
-  {id: 4, task: 'Pick up Tom', note:'Pick up Tom at school', toBeCompleted: Date.now() + Math.ceil(Math.random()*100000000) },
-  {id: 5, task: 'Technical meeting', note:'At meeting room 2', toBeCompleted: Date.now() + Math.ceil(Math.random()*100000000) },
-  {id: 6, task: 'Market meeting ', note:'At meeting room 5', toBeCompleted: Date.now() + Math.ceil(Math.random()*100000000) },
-];
+//import { TODOS } from './mock-todos';
+//Instead of import TODOS from mock-todos.ts, we use todo service to import the data
+import { TodoService } from './todo.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [TodoService]  
+  //The providers array  tells Angular to create a fresh instance of the TodoService
+  //when it creates an AppComponent. 
+  //The AppComponent, as well as its child components, can use that service to get todo data.
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+  constructor(private todoService: TodoService) {} 
+  //Supply an instance of the TodoService when it creates an AppComponent 
+
   title = 'My Todo List';
-  todos = TODOS;
-  selectedTodo : Todo;
+  //todos = TODOS;
+  selectedTodo : Todo;  
+  todos: Todo[];
+
+  ngOnInit(): void {	//At the Init stage of lifecycle, get all todo data so that it can be displayed
+  	this.getTodos();
+  }
 
   onSelect(todo: Todo): void {
   	this.selectedTodo = todo;
   	//alert(this.selectedTodo.task);
+  }
+
+  getTodos(): void {
+  	//this.todos = this.todoService.getTodos();
+  	this.todoService.getTodos().then(todos => this.todos = todos);
+  	//Pass the callback function as an argument to the Promise's then() method
   }
 }
